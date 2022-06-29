@@ -38,7 +38,7 @@ const CharacterList = ({CharacterList, OnLoadMore, handleReFetch,
 
     return (
     <div className='CardList'>
-        <div ref={listInnerRef} onScroll={onScroll} style={{ height: window.innerHeight, overflowY: "scroll" }}>
+        <div ref={listInnerRef} onScroll={onScroll} style={{ height: window.innerHeight-50, overflowY: "scroll" }}>
             {CharacterList.map((character, index) => (
                 <CharacterCard key={character.id} Character={character} isShownCreateCard={isShownCreateCard} isShownEditCard={isShownEditCard}
                 index={index+1} SetIsShown={SetIsShownEditCard} Setcharacter={Setcharacter}
