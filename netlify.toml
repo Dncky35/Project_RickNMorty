@@ -1,2 +1,2 @@
 [build]
-  base = "client"
+  base = "https://github.com/Dncky35/Project_RickNMorty/client"
