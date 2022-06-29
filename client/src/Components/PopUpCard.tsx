@@ -10,7 +10,7 @@ interface Definer{
     character: Character;
     SetIsShown: React.Dispatch<React.SetStateAction<boolean>>;
     isCreateCard: boolean;
-    handleReFetch: () => void;
+    handleReFetch: (offsetVal: number) => void
 }
 
 const DELETE_CHARACTER = gql`
@@ -44,6 +44,9 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
         return character.location.name;
     });
 
+    const [isNameEmpty, SetIsNameEmpty] = useState(() => { return isCreateCard})
+    const [isLocationEmpty, SetIsLocationEmpty] = useState(() => { return isCreateCard})
+
     const fileRef = useRef<HTMLInputElement>(null);
     
     const[ImageURL, SetImageURL] = useState(() => {
@@ -58,7 +61,7 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
     const [DeleteAccount] = useMutation<{DeleteAccount:String}>(DELETE_CHARACTER, {
         variables:{deleteCharacterId:character.id}});
     const [CreateCharacter] = useMutation<{CreateCharacter:Character}>(CREATE_CHARACTER, {
-        onError: (err) => window.alert(err),
+        onError: (err) =>{ console.log(err)},
         variables:{
             input:{
                 name:CharacterName,
@@ -67,7 +70,7 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
             }
     }});
     const [EditCharacter] = useMutation<{EditCharacter:Character}>(EDIT_CHARACTER, {
-        onError: (err) => window.alert(err),
+        onError: (err) =>{ console.log(err)},
         variables:{
         characterId:character.id,
         input:{
@@ -82,22 +85,26 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
 
         DeleteAccount();
         SetIsShown(false);
-        handleReFetch();
+        handleReFetch(Number(character.id));
     }
 
     const handleCreateCharacter = (event:React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
         CreateCharacter();
-        SetIsShown(false);
-        handleReFetch();
+
+        if(!isNameEmpty || !isLocationEmpty){
+            SetIsShown(false);
+        }
+        
+        handleReFetch(Number(character.id));
     }
 
     const handleEditCharacter = (event:React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
         EditCharacter();
-        handleReFetch();
+        handleReFetch(Number(character.id));
     }
 
     const handleUploadImage = (event:React.ChangeEvent<HTMLInputElement>) => {
@@ -148,8 +155,28 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
             <button className='PopButtonImageUpload' onClick={(e) => handleClick(e)}>Upload Image</button>
             <input ref={fileRef} onChange={handleUploadImage} multiple={false} type="file"  accept='image/*' hidden />
 
-            <div className='InputArea'><label className='PopBody'>Name:</label><input className='PopInput' value={CharacterName} onChange={(e) => SetCharacterName(e.target.value)} /></div> 
-            <div className='InputArea'><label className='PopBody'>Location:</label><input className='PopInput' value={LocationName} onChange={(e) => SetLocationName(e.target.value)} /></div>
+            <div className={isNameEmpty ? "InputAreaOnError" : 'InputArea'}><label className='PopBody'>Name:</label><input className={"PopInput"} value={CharacterName} 
+            onChange={ (e) => {
+                    SetCharacterName(e.target.value);
+                    if(e.target.value.trim() !== "" ){
+                        SetIsNameEmpty(false);
+                    } 
+                    else{
+                        SetIsNameEmpty(true);
+                    }
+                }} /></div> 
+            
+            <div className={isLocationEmpty ? "InputAreaOnError" : 'InputArea'}><label className='PopBody'>Location:</label><input className={"PopInput"} value={LocationName} 
+            onChange={ (e) => {
+                    SetLocationName(e.target.value);
+                    if(e.target.value.trim() !== "" ){
+                        SetIsLocationEmpty(false);
+                    } 
+                    else{
+                        SetIsLocationEmpty(true);
+                    }
+                }} /></div> 
+            
             {!isCreateCard && (
                 <button className='PopButtonSave' onClick={handleEditCharacter} >SAVE</button>
             )}

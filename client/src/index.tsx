@@ -6,7 +6,7 @@ const { createUploadLink } = require("apollo-upload-client");
 
 const client = new ApolloClient({
   link:createUploadLink({
-    uri:"https://enigmatic-depths-88421.herokuapp.com/"
+    uri:"http://localhost:5000"
   }),
   cache: new InMemoryCache({
     typePolicies:{

@@ -41,8 +41,12 @@ function App() {
     refetch({offset:0});
   },[filterValue, refetch]);
 
-  const handleReFetch = () => {
-    refetch({offset:0});
+  const handleReFetch = (offsetVal:number) => {
+
+    const rem = offsetVal % 20;
+    var quo = (offsetVal-rem)/20;
+
+    refetch({limit:(quo+1)*20});
   }
 
   return (

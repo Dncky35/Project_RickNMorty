@@ -6,7 +6,7 @@ import {Character} from "../Models/Characters"
 interface definer{
     filterValue:string;
     setFilterValue:React.Dispatch<React.SetStateAction<string>>;
-    handleReFetch: () => void;
+    handleReFetch: (offsetVal: number) => void
     isShownCreateCard:boolean;
     isShownEditCard:boolean;
     SetIsShownCreateCard: React.Dispatch<React.SetStateAction<boolean>>;
@@ -36,7 +36,7 @@ const HeadBar:React.FC<definer> = ({filterValue, setFilterValue, handleReFetch,
   }
 
   return (
-    <form className='TopBar'>
+    <div className='TopBar'>
       <label className="TopHeader">Rick and Morty</label>
       <select name="filter" id="filter"  disabled={isShownCreateCard || isShownEditCard} className="TopFilter" value={filterValue} onChange={(event) => handleChangeFilterValue(event)}>
         <option value=" ">All Characters</option>
@@ -52,7 +52,7 @@ const HeadBar:React.FC<definer> = ({filterValue, setFilterValue, handleReFetch,
        </div>
       )}
       </div>
-    </form>
+    </div>
   )
 }
 

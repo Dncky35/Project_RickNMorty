@@ -7,7 +7,7 @@ import PopUpCard from './PopUpCard';
 type HolderCharacters = {
     CharacterList: Character[];
     OnLoadMore: any;
-    handleReFetch: () => void;
+    handleReFetch: (offsetVal: number) => void
     isShownCreateCard:boolean;
     isShownEditCard: boolean;
     SetIsShownEditCard: React.Dispatch<React.SetStateAction<boolean>>;

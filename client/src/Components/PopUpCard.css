@@ -64,6 +64,15 @@
     background-color: darkgray;
 }
 
+.InputAreaOnError{
+    position: static;
+    margin: 12px;
+    padding: 8px;
+    border-radius: 20px;
+    background-color: darkgray;
+    border: 2px solid red;
+}
+
 .PopBody{
     font-size: 25px;
 }
