@@ -60,6 +60,15 @@ module.exports = {
         },
 
         async EditCharacter(parents:undefined, args:{CharacterID:number, input:InputCharacter}){
+
+            if(args.input.name.trim() === ""){
+                throw new UserInputError("name field can not be emtpy");
+            }
+
+            if(args.input.location.trim() === ""){
+                throw new UserInputError("location field can not be emtpy");
+            }
+
             const index = RNM_data.indexOf(RNM_data.filter((element: { id: number; }) => element.id === args.CharacterID)[0]);
 
             RNM_data[index].name = args.input.name;
@@ -79,6 +88,14 @@ module.exports = {
         },
 
         async CreateCharacter(parents:undefined, args:{input:InputCharacter}){
+
+            if(args.input.name.trim() === ""){
+                throw new UserInputError("name field can not be emtpy");
+            }
+
+            if(args.input.location.trim() === ""){
+                throw new UserInputError("location field can not be emtpy");
+            }
 
             const newCharacter = {
                 id: Object.values(RNM_data).length+1,

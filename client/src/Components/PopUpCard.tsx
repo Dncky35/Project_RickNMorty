@@ -55,15 +55,20 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
         }
     });
 
-    const [DeleteAccount] = useMutation<{DeleteAccount:String}>(DELETE_CHARACTER, {variables:{deleteCharacterId:character.id}});
-    const [CreateCharacter] = useMutation<{CreateCharacter:Character}>(CREATE_CHARACTER, {variables:{
-        input:{
-            name:CharacterName,
-            image:ImageURL,
-            location:LocationName
-        }
+    const [DeleteAccount] = useMutation<{DeleteAccount:String}>(DELETE_CHARACTER, {
+        variables:{deleteCharacterId:character.id}});
+    const [CreateCharacter] = useMutation<{CreateCharacter:Character}>(CREATE_CHARACTER, {
+        onError: (err) => window.alert(err),
+        variables:{
+            input:{
+                name:CharacterName,
+                image:ImageURL,
+                location:LocationName
+            }
     }});
-    const [EditCharacter] = useMutation<{EditCharacter:Character}>(EDIT_CHARACTER, {variables:{
+    const [EditCharacter] = useMutation<{EditCharacter:Character}>(EDIT_CHARACTER, {
+        onError: (err) => window.alert(err),
+        variables:{
         characterId:character.id,
         input:{
             name:CharacterName,
@@ -82,16 +87,6 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
 
     const handleCreateCharacter = (event:React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        
-        if(CharacterName.trim() === ""){
-            window.alert("Name field can not be empty !");
-            return
-        }
-
-        if(LocationName.trim() === ""){
-            window.alert("Location field can not be empty !");
-            return
-        }
 
         CreateCharacter();
         SetIsShown(false);
@@ -101,23 +96,12 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
     const handleEditCharacter = (event:React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        if(CharacterName.trim() === ""){
-            window.alert("Name field can not be empty !");
-            return
-        }
-
-        if(LocationName.trim() === ""){
-            window.alert("Location field can not be empty !");
-            return
-        }
-
         EditCharacter();
         handleReFetch();
     }
 
     const handleUploadImage = (event:React.ChangeEvent<HTMLInputElement>) => {
         if(event.target.files){
-            console.log(event.target.files[0]);
             const Image = event.target.files[0];
 
             if(Image){
@@ -160,7 +144,7 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
             {isCreateCard && (
                 <img className='PopImage' src={ImageURL} alt="character" />
             )}
-            
+    
             <button className='PopButtonImageUpload' onClick={(e) => handleClick(e)}>Upload Image</button>
             <input ref={fileRef} onChange={handleUploadImage} multiple={false} type="file"  accept='image/*' hidden />
 
