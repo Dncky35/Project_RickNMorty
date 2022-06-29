@@ -1,4 +1,8 @@
 const { ApolloServer } = require("apollo-server");
+import {
+  ApolloServerPluginLandingPageLocalDefault,
+  ApolloServerPluginLandingPageProductionDefault
+} from "apollo-server-core";
 
 const typeDefs = require("./GraphQL/TypeDefiner");
 const resolvers = require("./GraphQL/Resolvers/characters");
