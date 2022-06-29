@@ -112,10 +112,10 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
             const Image = event.target.files[0];
 
             if(Image){
-                const storageRef = await ref(storage, `/files/${Image.name}`);
+                const storageRef = ref(storage, `/files/${Image.name}`);
                 const uploadTask = uploadBytesResumable(storageRef, Image);
     
-                uploadTask.on(
+                await uploadTask.on(
                     "state_changed",
                     () => {
                         // download url
