@@ -9,6 +9,14 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     cache: 'bounded',
+	 plugins: [
+    process.env.NODE_ENV === "production"
+      ? ApolloServerPluginLandingPageProductionDefault({
+          graphRef: "my-graph-id@my-graph-variant",
+          footer: false,
+        })
+      : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
+  ],
 });
 
 server.listen({port:PORT}).then((res:{url:any}) => {
