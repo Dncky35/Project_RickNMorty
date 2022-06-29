@@ -73,13 +73,26 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
     }});
 
     const handleDeleteAccount = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+
         DeleteAccount();
         SetIsShown(false);
         handleReFetch();
     }
 
     const handleCreateCharacter = (event:React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         
+        if(CharacterName.trim() === ""){
+            window.alert("Name field can not be empty !");
+            return
+        }
+
+        if(LocationName.trim() === ""){
+            window.alert("Location field can not be empty !");
+            return
+        }
+
         CreateCharacter();
         SetIsShown(false);
         handleReFetch();
@@ -87,6 +100,17 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
 
     const handleEditCharacter = (event:React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
+
+        if(CharacterName.trim() === ""){
+            window.alert("Name field can not be empty !");
+            return
+        }
+
+        if(LocationName.trim() === ""){
+            window.alert("Location field can not be empty !");
+            return
+        }
+
         EditCharacter();
         handleReFetch();
     }
@@ -123,7 +147,6 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
     };
 
     return (
-    <form>
         <div className='PopUpCard'>
             <div>
             {!isCreateCard && (
@@ -151,7 +174,6 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
             )}
             
         </div>
-    </form>
     )
 }
 
