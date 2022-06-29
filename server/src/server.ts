@@ -1,5 +1,4 @@
 const { ApolloServer } = require("apollo-server");
-import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 
 const typeDefs = require("./GraphQL/TypeDefiner");
 const resolvers = require("./GraphQL/Resolvers/characters");
@@ -11,9 +10,6 @@ const server = new ApolloServer({
   resolvers,
   csrfPrevention: true,
   cache: "bounded",
-  plugins: [
-    ApolloServerPluginLandingPageGraphQLPlayground(),
-  ],
 });
 
 server.listen({port:PORT}).then((res:{url:any}) => {
