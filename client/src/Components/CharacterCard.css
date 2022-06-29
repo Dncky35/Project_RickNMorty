@@ -1,0 +1,39 @@
+.CardList{
+    box-sizing: border-box;
+    background-color:cadetblue;
+}
+
+.CardList:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.CardColumn{
+    float:left;
+    margin-left: 20%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 20%;
+}
+
+.Card {
+    border-radius: 10px;
+    border: 5px solid darkkhaki;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+    padding: 16px;
+    width: 300px;
+    height: 475px;
+    text-align: center;
+    background-color:darkolivegreen;
+    color: white;
+    font-family: "Neucha", cursive; 
+    font-size: 20px;
+}
+
+img{
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5%;
+}

@@ -1,0 +1,103 @@
+.PopUp{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    margin: auto;
+    border-style: solid;
+    border-width: 10px;
+    border-color: white;
+    border-radius: 20px;
+    background-color: whitesmoke;
+    box-shadow: 0 0 10px 1000px rgba(0, 0, 0, 0.5);
+    }
+
+.PopUpCard{
+    margin: 10px;
+    height: 750px;
+    width: 450px;
+    overflow: hidden;
+}
+
+.PopButton{
+    margin-bottom: 20px;
+    object-fit: cover;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+.PopButton:hover{
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
+}
+
+.PopImage{
+    height: 450px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5%;
+}
+
+.PopImage:hover{
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.6);
+}
+
+.PopButtonImageUpload{
+    margin-top: 10px;
+    border-radius: 20px;
+    height: 40px;
+    width: 75%;
+    margin-left: 60px;
+    font-size: 20px;
+    background-color: darkgray;
+}
+
+.PopButtonImageUpload:hover{
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
+}
+
+.InputArea{
+    position: static;
+    margin: 12.5px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: darkgray;
+}
+
+.PopBody{
+    font-size: 25px;
+}
+
+.PopInput{
+    font-size: 20px;
+}
+
+.PopInput::placeholder{
+    color: black;
+    opacity: 1;
+}
+
+input, input:hover, input:focus, input:active {
+    background: transparent;
+    border: 0;
+    border-style: none;
+    border-color: transparent;
+    outline: none;
+    outline-offset: 0;
+    box-shadow: none;
+}
+
+.PopButtonSave{
+    margin-top: 10px;
+    border-radius: 20px;
+    height: 40px;
+    width: 75%;
+    margin-left: 60px;
+    font-size: 20px;
+    background-color: darkgray;
+}
+
+.PopButtonSave:hover{
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
+}
+

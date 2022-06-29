@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Neucha&family=Shadows+Into+Light&display=swap');
+
+.TopBar{
+    background-color: darkslategray;
+    overflow: hidden;
+}
+
+.TopHeader{
+    float:  right;
+    margin-right: 20px;
+    margin-top: 10px; 
+    font-size: 36px; 
+    color: lightgreen;
+    font-family: "Neucha", cursive; 
+}
+
+.TopFilter{
+    float: left;
+    color:darkblue;
+    background-color: greenyellow;
+    text-align: center;
+    margin: 5px 10px;
+    padding: 14px 15px;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: "Neucha";
+}
+
+.TopFilter:hover{
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
+}
+
+.TopButton{
+    float: left;
+    color:darkblue;
+    background-color: greenyellow;
+    text-align: center;
+    margin: 5px 10px;
+    padding: 14px 15px;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: "Neucha";
+}
+
+.TopButton:hover{
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
+}
