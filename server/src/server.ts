@@ -1,8 +1,5 @@
 const { ApolloServer } = require("apollo-server");
-import {
-  ApolloServerPluginLandingPageLocalDefault,
-  ApolloServerPluginLandingPageProductionDefault
-} from "apollo-server-core";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 
 const typeDefs = require("./GraphQL/TypeDefiner");
 const resolvers = require("./GraphQL/Resolvers/characters");
@@ -15,13 +12,7 @@ const server = new ApolloServer({
   csrfPrevention: true,
   cache: "bounded",
   plugins: [
-    // Install a landing page plugin based on NODE_ENV
-    process.env.NODE_ENV === "production"
-      ? ApolloServerPluginLandingPageProductionDefault({
-          graphRef: "my-graph-id@my-graph-variant",
-          footer: false,
-        })
-      : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
+    ApolloServerPluginLandingPageGraphQLPlayground(),
   ],
 });
 
