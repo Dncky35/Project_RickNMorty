@@ -107,7 +107,7 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
         handleReFetch(Number(character.id));
     }
 
-    const handleUploadImage = (event:React.ChangeEvent<HTMLInputElement>) => {
+    const handleUploadImage = async (event:React.ChangeEvent<HTMLInputElement>) => {
         if(event.target.files){
             const Image = event.target.files[0];
 
@@ -115,7 +115,7 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
                 const storageRef = ref(storage, `/files/${Image.name}`);
                 const uploadTask = uploadBytesResumable(storageRef, Image);
     
-                uploadTask.on(
+                await uploadTask.on(
                     "state_changed",
                     () => {
                         // download url
