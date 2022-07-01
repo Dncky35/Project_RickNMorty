@@ -1,4 +1,5 @@
 const { UserInputError } = require("apollo-server");
+const Character = require("../../Models/Character");
 const RNM_data = require("../../../data/RNM_data.json");
 const fs = require("fs");
 
@@ -15,48 +16,22 @@ module.exports = {
     Query:{
         async GetCharacters(parents:undefined, args:{offset:number, limit:number, searchname:string}){
 
-            var results: any[];
-            var name = args.searchname.toUpperCase();
-
-            if(name === " ") {
-                const DataPages = ({off = args.offset, lim = args.limit}) => RNM_data.slice(off, off+lim).map((index: any) => ({...index}));
-                 return DataPages({})
-            }
-
-             results = RNM_data.filter(function(entry: { name: string; }) {
-                 return entry.name.toUpperCase().indexOf(name) !== -1;
-             });
-            
-            const DataPages = ({off = args.offset, lim = args.limit}) => results.slice(off, off+lim).map(index => ({...index}));
-             return DataPages({})
+            return await Character.find({name:{$regex: args.searchname, $options: "i"}}).skip(args.offset).limit(args.limit);
         }
     },
 
     Mutation:{
-        async DeleteCharacter(parents:undefined, args:{id:number}){
+        async DeleteCharacter(parents:undefined, args:{id:string}){
 
-            const index = RNM_data.indexOf(RNM_data.filter((element: { id: number; }) => element.id === args.id)[0]);
-            
-            if(index === -1){
-                return "Account has not exist"
+            const tempChar = await Character.findById(args.id);
+
+            if(!tempChar){
+                throw new UserInputError('Character is not exist', {errors:"Character is not exist"})
             }
 
-            RNM_data.splice(index, 1);
+            await tempChar.delete();
 
-            for(let i = args.id-1; i < Object.values(RNM_data).length; i++){
-                RNM_data[i].id = i+1;
-            }
-                
-            fs.writeFile('./Data/RNM_data.json', JSON.stringify(RNM_data, null, 2), (err:any) => {
-                if(err){
-                    console.log('Error writing file', err)
-                }
-                else{
-                    console.log('Successfully wrote file')
-                }
-            })
-
-            return 'Account has been deleted'
+            return `${tempChar.name} has been deleted`
         },
 
         async EditCharacter(parents:undefined, args:{CharacterID:number, input:InputCharacter}){
@@ -69,22 +44,21 @@ module.exports = {
                 throw new UserInputError("location field can not be emtpy");
             }
 
-            const index = RNM_data.indexOf(RNM_data.filter((element: { id: number; }) => element.id === args.CharacterID)[0]);
-
-            RNM_data[index].name = args.input.name;
-            RNM_data[index].location.name = args.input.location;
-            RNM_data[index].image = args.input.image;
-
-            fs.writeFile('./Data/RNM_data.json', JSON.stringify(RNM_data, null, 2), (err: any) => {
-                if (err) {
-                    console.log('Error writing file', err)
-                } else {
-                    console.log('Successfully wrote file')
+            const tempChar = await Character.findById(args.CharacterID).then((res:any) => {
+                
+                if(!res){
+                    throw new UserInputError('Character is not exist', {errors:"Character is not exist"})
                 }
-           });
-           
-           return RNM_data[index];
-            
+                else{
+                    res.name = args.input.name;
+                    res.image = args.input.image;
+                    res.location.name = args.input.location;
+                    res.save();
+                    return res
+                }
+            }); 
+
+            return tempChar
         },
 
         async CreateCharacter(parents:undefined, args:{input:InputCharacter}){
@@ -97,29 +71,16 @@ module.exports = {
                 throw new UserInputError("location field can not be emtpy");
             }
 
-            const newCharacter = {
-                id: Object.values(RNM_data).length+1,
+            const newCharacter = new Character({
                 name:args.input.name,
+                image:args.input.image,
                 location:{
                     name:args.input.location
-                },
-                image:args.input.image
-            }
-
-            var jsonString = RNM_data;
-            jsonString.push(newCharacter);
-            jsonString = JSON.stringify(jsonString, null, 2);
-            
-            fs.writeFile('./Data/RNM_data.json', jsonString, (err: any) => {
-                 if (err) {
-                     console.log('Error writing file', err)
-                 } else {
-                     console.log('Successfully wrote file')
-                 }
+                }
             });
-            
-            return newCharacter;
-          
+
+            const res = await newCharacter.save();
+            return res          
         },
     }
     

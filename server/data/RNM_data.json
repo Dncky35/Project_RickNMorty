@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "qe",
+    "name": "Rick (Edited)",
     "status": "Alive",
     "species": "Human",
     "type": "",
@@ -14,7 +14,7 @@
       "name": "Earth (Replacement Dimension)",
       "url": "https://rickandmortyapi.com/api/location/20"
     },
-    "image": "https://raw.githubusercontent.com/Laboratoria/rick-and-morty-images/master/images/1.jpeg",
+    "image": "https://firebasestorage.googleapis.com/v0/b/rnm-upload.appspot.com/o/files%2FMV5BYmZmMDJkN2QtZjQyMC00ODEyLTk0MWUtYzk5YzU4ODAyZTkwXkEyXkFqcGdeQTNwaW5nZXN0._V1_.jpg?alt=media&token=70933250-a344-4e4e-8767-f17b3c97aaee",
     "episode": [
       "https://rickandmortyapi.com/api/episode/1",
       "https://rickandmortyapi.com/api/episode/2",
@@ -664,7 +664,7 @@
   },
   {
     "id": 25,
-    "name": "Armothye",
+    "name": "Armothy",
     "status": "Dead",
     "species": "unknown",
     "type": "Self-aware arm",
@@ -11133,34 +11133,18 @@
   },
   {
     "id": 493,
-    "name": "",
-    "location": {
-      "name": ""
-    },
-    "image": "https://raw.githubusercontent.com/Laboratoria/rick-and-morty-images/master/images/66.jpeg"
-  },
-  {
-    "id": 494,
-    "name": "q",
-    "location": {
-      "name": "e"
-    },
-    "image": "https://raw.githubusercontent.com/Laboratoria/rick-and-morty-images/master/images/66.jpeg"
-  },
-  {
-    "id": 495,
-    "name": "asd",
-    "location": {
-      "name": "asd"
-    },
-    "image": "https://raw.githubusercontent.com/Laboratoria/rick-and-morty-images/master/images/66.jpeg"
-  },
-  {
-    "id": 496,
     "name": "test rick (edited)",
     "location": {
       "name": "test"
     },
     "image": "https://firebasestorage.googleapis.com/v0/b/rnm-upload.appspot.com/o/files%2FMV5BYmZmMDJkN2QtZjQyMC00ODEyLTk0MWUtYzk5YzU4ODAyZTkwXkEyXkFqcGdeQTNwaW5nZXN0._V1_.jpg?alt=media&token=9463e7d4-313e-4c18-8877-00e78bfa1e30"
+  },
+  {
+    "id": 494,
+    "name": "test Character",
+    "location": {
+      "name": "unknown"
+    },
+    "image": "https://raw.githubusercontent.com/Laboratoria/rick-and-morty-images/master/images/66.jpeg"
   }
 ]

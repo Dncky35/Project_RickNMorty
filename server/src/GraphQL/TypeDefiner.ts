@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server-express");
+const { gql } = require("apollo-server");
 
 module.exports = gql`
     scalar Upload
@@ -14,6 +14,7 @@ module.exports = gql`
     }
 
     type Character{
+        _id:String!
         id:Int
         name:String!
         
@@ -32,8 +33,8 @@ module.exports = gql`
     }
 
     type Mutation{
-        DeleteCharacter(id:Int):String
-        EditCharacter(CharacterID:Int, input:CharacterInput):Character
+        DeleteCharacter(id:String):String
+        EditCharacter(CharacterID:String, input:CharacterInput):Character
         CreateCharacter(input:CharacterInput):Character!
     }
 

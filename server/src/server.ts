@@ -1,5 +1,7 @@
 const { ApolloServer } = require("apollo-server");
+const mongoose = require("mongoose");
 
+const { MONGODB } = require("./config");
 const typeDefs = require("./GraphQL/TypeDefiner");
 const resolvers = require("./GraphQL/Resolvers/characters");
 
@@ -11,6 +13,9 @@ const server = new ApolloServer({
     cache: 'bounded',
 });
 
-server.listen({port:PORT}).then((res:{url:any}) => {
-    console.log(`Server Ready at ${res.url}`);
+mongoose.connect(MONGODB,  { useNewUrlParser:true}).then(() => {
+    console.log('MongoDB Connected');
+    return server.listen({port:PORT});
+}).then((res:{url:any}) => {
+    console.log(`Server running at ${res.url}`);
 });
