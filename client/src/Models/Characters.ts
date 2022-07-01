@@ -1,5 +1,5 @@
 export interface Character{
-    id:string
+    _id:string
     name:string
     image:string
     location :{
@@ -9,11 +9,4 @@ export interface Character{
 
 export interface Characters{
     result:[Character]
-}
-
-export interface ImageFile{
-    filename:string,
-    memetype:string,
-    encoding:string,
-    url:string
 }

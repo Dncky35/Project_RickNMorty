@@ -6,12 +6,13 @@ interface Results{
     Character: Character;
     SetIsShown: React.Dispatch<React.SetStateAction<boolean>>;
     Setcharacter: React.Dispatch<React.SetStateAction<Character>>;
+    SetIndex: React.Dispatch<React.SetStateAction<number>>
     index: number;
     isShownCreateCard:boolean;
     isShownEditCard:boolean;
   }
 
-const CharacterCard = ({Character, index, SetIsShown, Setcharacter, isShownCreateCard, isShownEditCard}:Results) => {
+const CharacterCard = ({Character, index, SetIsShown, Setcharacter, SetIndex, isShownCreateCard, isShownEditCard}:Results) => {
 
   const handleCardClick = () => {
     if(isShownCreateCard || isShownEditCard){
@@ -20,6 +21,7 @@ const CharacterCard = ({Character, index, SetIsShown, Setcharacter, isShownCreat
 
     SetIsShown(true);
     Setcharacter(Character);
+    SetIndex(index);
   }
 
   return (

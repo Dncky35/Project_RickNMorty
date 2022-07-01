@@ -11,10 +11,11 @@ interface Definer{
     SetIsShown: React.Dispatch<React.SetStateAction<boolean>>;
     isCreateCard: boolean;
     handleReFetch: (offsetVal: number) => void
+    index:number;
 }
 
 const DELETE_CHARACTER = gql`
-    mutation DeleteAccount($deleteCharacterId: Int){
+    mutation DeleteAccount($deleteCharacterId: String){
         DeleteCharacter(id: $deleteCharacterId)
     }
 `;
@@ -28,14 +29,14 @@ const CREATE_CHARACTER = gql`
 ;
 
 const EDIT_CHARACTER = gql`
-    mutation EditCharacter($characterId: Int, $input: CharacterInput){
+    mutation EditCharacter($characterId: String, $input: CharacterInput){
     EditCharacter (CharacterID: $characterId, input: $input){
             name
         }
     }
 `;
 
-const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer) => {
+const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch, index}:Definer) => {
 
     const [CharacterName, SetCharacterName] = useState(() => {
         return character.name;
@@ -59,7 +60,7 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
     });
 
     const [DeleteAccount] = useMutation<{DeleteAccount:String}>(DELETE_CHARACTER, {
-        variables:{deleteCharacterId:character.id}});
+        variables:{deleteCharacterId:character._id}});
     const [CreateCharacter] = useMutation<{CreateCharacter:Character}>(CREATE_CHARACTER, {
         onError: (err) =>{ console.log(err)},
         variables:{
@@ -72,7 +73,7 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
     const [EditCharacter] = useMutation<{EditCharacter:Character}>(EDIT_CHARACTER, {
         onError: (err) =>{ console.log(err)},
         variables:{
-        characterId:character.id,
+        characterId:character._id,
         input:{
             name:CharacterName,
             image:ImageURL,
@@ -80,31 +81,31 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
         }
     }});
 
-    const handleDeleteAccount = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleDeleteAccount = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        DeleteAccount();
+        await DeleteAccount();
         SetIsShown(false);
-        handleReFetch(Number(character.id));
+        handleReFetch(index);
     }
 
-    const handleCreateCharacter = (event:React.MouseEvent<HTMLButtonElement>) => {
+    const handleCreateCharacter = async (event:React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        CreateCharacter();
+        await CreateCharacter();
 
         if(!isNameEmpty || !isLocationEmpty){
             SetIsShown(false);
         }
         
-        handleReFetch(Number(character.id));
+        handleReFetch(index);
     }
 
-    const handleEditCharacter = (event:React.MouseEvent<HTMLButtonElement>) => {
+    const handleEditCharacter = async (event:React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        EditCharacter();
-        handleReFetch(Number(character.id));
+        await EditCharacter();
+        handleReFetch(index);
     }
 
     const handleUploadImage = async (event:React.ChangeEvent<HTMLInputElement>) => {
@@ -141,7 +142,7 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch}:Definer)
         <div className='PopUpCard'>
             <div>
             {!isCreateCard && (
-                <button className='PopButton' type='button' value={character.id} onClick={handleDeleteAccount} style={{float:"left"}} >DELETE</button>
+                <button className='PopButton' type='button' value={character._id} onClick={handleDeleteAccount} style={{float:"left"}} >DELETE</button>
             )}
             <button className='PopButton' type='button' onClick={(e) => SetIsShown(false)} style={{float:"right"}}>X</button>
             {!isCreateCard && (

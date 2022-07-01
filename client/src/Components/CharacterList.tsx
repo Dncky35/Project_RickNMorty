@@ -18,15 +18,23 @@ const CharacterList = ({CharacterList, OnLoadMore, handleReFetch,
 
     const [character, Setcharacter] = useState<Character>(() => {
         return {
-            id: "",
+            _id: "",
             image:"",
             location:{name:""},
             name:""
         }
     });
+
+    const [index, SetIndex] = useState<number>(() => {
+        return 0
+    })
     const listInnerRef = useRef() as React.MutableRefObject<HTMLInputElement>; 
 
     const onScroll = () => {
+
+        if(isShownCreateCard || isShownEditCard)
+            return;
+
         if (listInnerRef.current) {
             const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
         if (scrollTop + clientHeight === scrollHeight) {
@@ -38,16 +46,16 @@ const CharacterList = ({CharacterList, OnLoadMore, handleReFetch,
 
     return (
     <div className='CardList'>
-        <div ref={listInnerRef} onScroll={onScroll} style={{ height: window.innerHeight-50, overflowY: "scroll" }}>
+        <div ref={listInnerRef} onScroll={onScroll} style={{ height: window.innerHeight-67.5, overflowY: "scroll" }}>
             {CharacterList.map((character, index) => (
-                <CharacterCard key={character.id} Character={character} isShownCreateCard={isShownCreateCard} isShownEditCard={isShownEditCard}
-                index={index+1} SetIsShown={SetIsShownEditCard} Setcharacter={Setcharacter}
+                <CharacterCard key={character._id} Character={character} isShownCreateCard={isShownCreateCard} isShownEditCard={isShownEditCard}
+                index={index+1} SetIsShown={SetIsShownEditCard} Setcharacter={Setcharacter} SetIndex={SetIndex}
                 />
             ))}
         </div>
         {isShownEditCard && (
          <div className='PopUp'>
-            <PopUpCard character={character} SetIsShown={SetIsShownEditCard} 
+            <PopUpCard character={character} SetIsShown={SetIsShownEditCard} index={index}
             isCreateCard={false} handleReFetch={handleReFetch}/>
        </div>
       )}

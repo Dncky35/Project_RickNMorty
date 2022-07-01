@@ -8,7 +8,7 @@ import { Character } from './Models/Characters';
 const GET_CHARATERS_QUERY = gql`
   query getCharacters($offset: Int, $limit: Int, $searchname: String){
     GetCharacters (offset: $offset, limit: $limit, searchname: $searchname){
-      id
+      _id
       name
       image
       location {

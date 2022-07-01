@@ -16,7 +16,7 @@ const HeadBar:React.FC<definer> = ({filterValue, setFilterValue, handleReFetch,
   isShownCreateCard, SetIsShownCreateCard, isShownEditCard}) => {
 
   const character:Character =  {
-        id: "",
+        _id: "",
         image:"",
         location:{name:""},
         name:""
@@ -47,7 +47,7 @@ const HeadBar:React.FC<definer> = ({filterValue, setFilterValue, handleReFetch,
       <div>
       {isShownCreateCard && (
          <div className='PopUp'>
-            <PopUpCard character={character} SetIsShown={SetIsShownCreateCard} isCreateCard={true} 
+            <PopUpCard character={character} SetIsShown={SetIsShownCreateCard} isCreateCard={true} index={0}
             handleReFetch={handleReFetch} />
        </div>
       )}
