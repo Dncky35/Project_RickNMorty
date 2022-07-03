@@ -1,7 +1,6 @@
 const { gql } = require("apollo-server");
 
 module.exports = gql`
-    scalar Upload
 
     type Origin{
         name:String
@@ -13,6 +12,11 @@ module.exports = gql`
         url:String
     }
 
+    type ResultInfo{
+        currentPage:Int
+        TotalPage:Int
+    }
+
     type Character{
         _id:String!
         id:Int
@@ -20,6 +24,11 @@ module.exports = gql`
         
         location:Location
         image:String
+    }
+    
+    type Characters{
+        Info:ResultInfo
+        Result:[Character]!
     }
 
     input CharacterInput{
@@ -29,7 +38,7 @@ module.exports = gql`
     }
 
     type Query{
-        GetCharacters(offset:Int, limit:Int, searchname:String):[Character]!
+        GetCharacters(pageNumber:Int, limit:Int, searchname:String):Characters!
     }
 
     type Mutation{

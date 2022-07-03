@@ -14,9 +14,22 @@ type InputCharacter = Pick<_Character, "name" | "location" | "image">;
 module.exports = {
     
     Query:{
-        async GetCharacters(parents:undefined, args:{offset:number, limit:number, searchname:string}){
+        async GetCharacters(parents:undefined, args:{pageNumber:number, limit:number, searchname:string}){
+            
+            const Char_count = await Character.find({name:{$regex: args.searchname, $options: "i"}}).count();
+            const rem = Char_count % 20;
+            var quo = (Char_count-rem)/20;
 
-            return await Character.find({name:{$regex: args.searchname, $options: "i"}}).skip(args.offset).limit(args.limit);
+            const Char = await Character.find({name:{$regex: args.searchname, $options: "i"}}).skip((args.pageNumber-1)*20).limit(args.limit);
+
+            const Characters = {
+                Info:{
+                    currentPage:args.pageNumber,
+                    TotalPage:quo
+                },
+                Result:Char
+            }
+            return Characters;
         }
     },
 
