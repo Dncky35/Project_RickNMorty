@@ -1,7 +1,4 @@
 const { UserInputError } = require("apollo-server");
-const Character = require("../../Models/Character");
-const RNM_data = require("../../../data/RNM_data.json");
-const fs = require("fs");
 
 interface _Character{
     name:string,
