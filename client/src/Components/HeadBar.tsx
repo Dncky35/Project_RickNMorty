@@ -31,7 +31,6 @@ const HeadBar:React.FC<definer> = ({filterValue, setFilterValue, handleReFetch,
   } 
 
   const handleChangeFilterValue = (event: React.ChangeEvent<HTMLSelectElement>) =>{
-    console.log(event.target.value);
     setFilterValue(event.target.value);
   }
 
@@ -39,7 +38,7 @@ const HeadBar:React.FC<definer> = ({filterValue, setFilterValue, handleReFetch,
     <div className='TopBar'>
       <label className="TopHeader">Rick and Morty</label>
       <select name="filter" id="filter"  disabled={isShownCreateCard || isShownEditCard} className="TopFilter" value={filterValue} onChange={(event) => handleChangeFilterValue(event)}>
-        <option value=" ">All Characters</option>
+        <option value="">All Characters</option>
         <option value="Rick">Rick</option>
         <option value="Morty">Morty</option>
       </select>

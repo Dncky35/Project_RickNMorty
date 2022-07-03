@@ -8,5 +8,9 @@ export interface Character{
 }
 
 export interface Characters{
-    result:[Character]
+    Info:{
+      currentPage:number
+      TotalPage:number
+    }
+    Result:[Character]
 }

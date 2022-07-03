@@ -103,7 +103,6 @@ const PopUpCard = ({character, isCreateCard, SetIsShown, handleReFetch, index}:D
 
     const handleEditCharacter = async (event:React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-
         await EditCharacter();
         handleReFetch(index);
     }

@@ -6,14 +6,14 @@ import PopUpCard from './PopUpCard';
 
 type HolderCharacters = {
     CharacterList: Character[];
-    OnLoadMore: any;
+    OnLoadMore: () => void
     handleReFetch: (offsetVal: number) => void
     isShownCreateCard:boolean;
     isShownEditCard: boolean;
     SetIsShownEditCard: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const CharacterList = ({CharacterList, OnLoadMore, handleReFetch, 
+const CharacterList = ({CharacterList, OnLoadMore, handleReFetch,
     isShownEditCard, isShownCreateCard, SetIsShownEditCard }:HolderCharacters) => {
 
     const [character, Setcharacter] = useState<Character>(() => {
@@ -38,7 +38,6 @@ const CharacterList = ({CharacterList, OnLoadMore, handleReFetch,
         if (listInnerRef.current) {
             const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
         if (scrollTop + clientHeight === scrollHeight) {
-            console.log("reached bottom");
             OnLoadMore();
         }
         }
